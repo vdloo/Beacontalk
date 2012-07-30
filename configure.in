@@ -1,0 +1,6 @@
+AC_INIT(src/beacontalk.c)
+AM_INIT_AUTOMAKE(beacontalk,0.1)
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_OUTPUT(Makefile)
+AM_PROG_CC_C_O
