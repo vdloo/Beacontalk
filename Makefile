@@ -64,7 +64,7 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_beacontalk_OBJECTS = beacontalk-beacontalk.$(OBJEXT) \
+am_beacontalk_OBJECTS = beacontalk-main.$(OBJEXT) \
 	beacontalk-beaconpacket.$(OBJEXT) beacontalk-threads.$(OBJEXT)
 beacontalk_OBJECTS = $(am_beacontalk_OBJECTS)
 beacontalk_LDADD = $(LDADD)
@@ -188,7 +188,7 @@ target_alias =
 top_build_prefix = 
 top_builddir = .
 top_srcdir = .
-beacontalk_SOURCES = src/beacontalk.c src/beaconpacket.c src/beaconpacket.h src/threads.c src/threads.h
+beacontalk_SOURCES = src/main.c src/beaconpacket.c src/beaconpacket.h src/threads.c src/threads.h
 beacontalk_CFLAGS = -lpcap -pthread
 all: all-am
 
@@ -279,7 +279,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/beacontalk-beaconpacket.Po
-include ./$(DEPDIR)/beacontalk-beacontalk.Po
+include ./$(DEPDIR)/beacontalk-main.Po
 include ./$(DEPDIR)/beacontalk-threads.Po
 
 .c.o:
@@ -296,19 +296,19 @@ include ./$(DEPDIR)/beacontalk-threads.Po
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(COMPILE) -c `$(CYGPATH_W) '$<'`
 
-beacontalk-beacontalk.o: src/beacontalk.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(beacontalk_CFLAGS) $(CFLAGS) -MT beacontalk-beacontalk.o -MD -MP -MF $(DEPDIR)/beacontalk-beacontalk.Tpo -c -o beacontalk-beacontalk.o `test -f 'src/beacontalk.c' || echo '$(srcdir)/'`src/beacontalk.c
-	$(am__mv) $(DEPDIR)/beacontalk-beacontalk.Tpo $(DEPDIR)/beacontalk-beacontalk.Po
-#	source='src/beacontalk.c' object='beacontalk-beacontalk.o' libtool=no \
+beacontalk-main.o: src/main.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(beacontalk_CFLAGS) $(CFLAGS) -MT beacontalk-main.o -MD -MP -MF $(DEPDIR)/beacontalk-main.Tpo -c -o beacontalk-main.o `test -f 'src/main.c' || echo '$(srcdir)/'`src/main.c
+	$(am__mv) $(DEPDIR)/beacontalk-main.Tpo $(DEPDIR)/beacontalk-main.Po
+#	source='src/main.c' object='beacontalk-main.o' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(beacontalk_CFLAGS) $(CFLAGS) -c -o beacontalk-beacontalk.o `test -f 'src/beacontalk.c' || echo '$(srcdir)/'`src/beacontalk.c
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(beacontalk_CFLAGS) $(CFLAGS) -c -o beacontalk-main.o `test -f 'src/main.c' || echo '$(srcdir)/'`src/main.c
 
-beacontalk-beacontalk.obj: src/beacontalk.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(beacontalk_CFLAGS) $(CFLAGS) -MT beacontalk-beacontalk.obj -MD -MP -MF $(DEPDIR)/beacontalk-beacontalk.Tpo -c -o beacontalk-beacontalk.obj `if test -f 'src/beacontalk.c'; then $(CYGPATH_W) 'src/beacontalk.c'; else $(CYGPATH_W) '$(srcdir)/src/beacontalk.c'; fi`
-	$(am__mv) $(DEPDIR)/beacontalk-beacontalk.Tpo $(DEPDIR)/beacontalk-beacontalk.Po
-#	source='src/beacontalk.c' object='beacontalk-beacontalk.obj' libtool=no \
+beacontalk-main.obj: src/main.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(beacontalk_CFLAGS) $(CFLAGS) -MT beacontalk-main.obj -MD -MP -MF $(DEPDIR)/beacontalk-main.Tpo -c -o beacontalk-main.obj `if test -f 'src/main.c'; then $(CYGPATH_W) 'src/main.c'; else $(CYGPATH_W) '$(srcdir)/src/main.c'; fi`
+	$(am__mv) $(DEPDIR)/beacontalk-main.Tpo $(DEPDIR)/beacontalk-main.Po
+#	source='src/main.c' object='beacontalk-main.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(beacontalk_CFLAGS) $(CFLAGS) -c -o beacontalk-beacontalk.obj `if test -f 'src/beacontalk.c'; then $(CYGPATH_W) 'src/beacontalk.c'; else $(CYGPATH_W) '$(srcdir)/src/beacontalk.c'; fi`
+#	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(beacontalk_CFLAGS) $(CFLAGS) -c -o beacontalk-main.obj `if test -f 'src/main.c'; then $(CYGPATH_W) 'src/main.c'; else $(CYGPATH_W) '$(srcdir)/src/main.c'; fi`
 
 beacontalk-beaconpacket.o: src/beaconpacket.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(beacontalk_CFLAGS) $(CFLAGS) -MT beacontalk-beaconpacket.o -MD -MP -MF $(DEPDIR)/beacontalk-beaconpacket.Tpo -c -o beacontalk-beaconpacket.o `test -f 'src/beaconpacket.c' || echo '$(srcdir)/'`src/beaconpacket.c

@@ -1,3 +1,19 @@
+// Beacontalk - peer to peer chat-program that sends data over Wi-Fi without associations.
+// Copyright (C) 2012 Rick van de Loo
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 #include <stdio.h>
 #include <string.h>
 
@@ -42,7 +58,7 @@ void shiftarray(){
 	/* prints the messages */
 	for (i = 99; i > 0; i--){
 		if (text[i][0] != 0){
-			printf("%d -> %s",i, text[i]);
+			printf("%s", text[i]);
 		}
 	}
 	fputs("enter message: ", stdout);
