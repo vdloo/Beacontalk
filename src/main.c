@@ -21,7 +21,7 @@
 
 #define SCREEN_HEIGHT 100
 
-int i, j, checkdouble;
+int i, j;
 char nick[10], message[500], concatenated[512], text[100][512];
 char *dev;
 
@@ -30,16 +30,7 @@ void shiftarray(){
 	for (i = SCREEN_HEIGHT; i > 0; i--){
 		printf("\n");
 	}
-	/* clears any double messages, a guid would be nicer here */ 
-	checkdouble = 0;
-	for (i = 1; i < 5; i++){
-		if (strcmp(text[0], text[i]) == 0){
-			checkdouble = 1;
-		}
-	}
-	if (checkdouble){
-		text[0][0] = 0;
-	}
+
 	/* deletes the last entry in the array when it is full */
 	if (text[0][0] != 0 && text[1][0] != 0 && text[99][0] != 0){
 		text[99][0] = 0;
@@ -67,23 +58,32 @@ void shiftarray(){
 
 void printmessage(){
 
-//	shiftarray();
 	fgets(message, sizeof message, stdin);
 	strcpy(concatenated, nick);
 	strcat(concatenated, ": ");
 	strcat(concatenated, message);
 	/* sends the package a bunch of times, this is just fire and forget */
-	for (i = 100; i > 0; i--){
+	for (i = 10; i > 0; i--){
 		send_beaconpacket(concatenated);
 	}
 }	
+
+void print_help(){
+	printf( "usage: beacontalk [--help] [interface]\n"
+		"example: beacontalk wlan1		\n"
+		"Also, make sure you have the right privileges\n");
+}
 
 int main(int argc, char *argv[]){
 
 	/* defines the wireless device that will be used */
 	if (argc < 2){
-	printf("enter wireless interface as argument\n");
+	printf("enter wireless interface as argument, --help for help.\n");
 		return(0);
+	}
+	if ((argv[1][0] == '-' && argv[1][1] == 'h') || (argv[1][0] == '-' && argv[1][1] == '-' && argv[1][2] == 'h')){
+		print_help();
+		return 0;
 	}
 	dev = argv[1];
 
@@ -112,6 +112,8 @@ int main(int argc, char *argv[]){
 
 			case 2:
 				/* takes care of the sending and displaying of messages */
+				fputs("enter message: ", stdout);
+				fflush(stdout);
 				while (1){	
 					printmessage();
 				}
@@ -124,6 +126,5 @@ int main(int argc, char *argv[]){
 
 	/* initiates the threading */
 	thread_init(threads);
-
 }
 

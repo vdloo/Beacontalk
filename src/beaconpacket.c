@@ -30,14 +30,14 @@ int get_beaconpacket()
 	char errbuf[2048];
 
 	/* defines other variables */
-	int k, l, identified, start, end, intlength;
+	int k, l, identified, start, end, intlength, checkdouble;
 	char charlength[6];
 	char messagebuffer[512][1];
 
 	/* opening pcap session */
 	handle = pcap_open_live(dev, 1024, 0, 1024, errbuf);
 	if (handle == NULL){
-		printf("Couldn't open device %s: %s\n", dev, errbuf);
+		printf("Couldn't open device %s\n", errbuf);
 		exit(1);
 	}
 
@@ -63,7 +63,6 @@ int get_beaconpacket()
 					charlength[k] = packet[start+k+4];
 				}
 				intlength = atoi(charlength);
-/*				printf("number as string is %d\n", intlength); */
 			}
 			if (intlength > 0){
 				l = 0;
@@ -72,6 +71,22 @@ int get_beaconpacket()
 					l++;
 				}
 				strcpy(text[0], messagebuffer);
+				/* clears any double messages, a guid would be nicer here */ 
+				checkdouble = 0;
+				for (k = 1; k < 20; k++){
+					if (strcmp(text[0], text[k]) == 0){
+						checkdouble = 1;
+					}
+				}
+				if (checkdouble){
+					text[0][0] = 0;
+				}
+				else{
+					for (k = 5; k > 0; k--){
+						if ( -1 == pcap_sendpacket(handle, packet, 1024))
+							printf("sending package failed\n");
+					}
+				}
 				shiftarray();
 			}
 		}
@@ -93,7 +108,7 @@ int send_beaconpacket(char data[512])
 	char errbuf[512];
 	handle = pcap_open_live(dev, BUFSIZ, 0, 1000, errbuf);
 	if (handle == NULL){
-		printf("Couldn't open device %s: %s\n", dev, errbuf);
+		printf("Couldn't open device %s\n", errbuf);
 		exit(1);
 	}
 	u_char buf[1024];
