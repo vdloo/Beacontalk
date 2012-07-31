@@ -5,28 +5,44 @@
 
 #define SCREEN_HEIGHT 100
 
-int i, j;
+int i, j, checkdouble;
 char nick[10], message[500], concatenated[512], text[100][512];
 char *dev;
 
 void shiftarray(){
+	/* clears screen */
 	for (i = SCREEN_HEIGHT; i > 0; i--){
 		printf("\n");
 	}
-	if (text[0][0] != 0 && text[1][0] != 0 && text[100][0] != 0){
-		text[100][0] = 0;
-	}
-	for (i = 98; i >= 0; i--){
-		if (text[i][0] != 0 && text[i+1][0] == 0){
-			for (j = 0; j < 512; j++){
-				text[i+1][j] = text[i][j];
-			}
-			text[i][0] = 0;
+	/* clears any double messages, a guid would be nicer here */ 
+	checkdouble = 0;
+	for (i = 1; i < 5; i++){
+		if (strcmp(text[0], text[i]) == 0){
+			checkdouble = 1;
 		}
 	}
+	if (checkdouble){
+		text[0][0] = 0;
+	}
+	/* deletes the last entry in the array when it is full */
+	if (text[0][0] != 0 && text[1][0] != 0 && text[99][0] != 0){
+		text[99][0] = 0;
+	}
+	/* moves the messages up in the array */
+	if (text[0][0] != 0){
+		for (i = 99; i >= 0; i--){
+			if (text[i][0] != 0 && text[i+1][0] == 0){
+				for (j = 0; j < 512; j++){
+					text[i+1][j] = text[i][j];
+				}
+				text[i][0] = 0;
+			}
+		}
+	}
+	/* prints the messages */
 	for (i = 99; i > 0; i--){
 		if (text[i][0] != 0){
-			printf("%s", text[i]);
+			printf("%d -> %s",i, text[i]);
 		}
 	}
 	fputs("enter message: ", stdout);
@@ -35,13 +51,15 @@ void shiftarray(){
 
 void printmessage(){
 
-	shiftarray();
+//	shiftarray();
 	fgets(message, sizeof message, stdin);
 	strcpy(concatenated, nick);
 	strcat(concatenated, ": ");
 	strcat(concatenated, message);
-	/*broadcast the message here */
-	send_beaconpacket(concatenated);
+	/* sends the package a bunch of times, this is just fire and forget */
+	for (i = 100; i > 0; i--){
+		send_beaconpacket(concatenated);
+	}
 }	
 
 int main(int argc, char *argv[]){
@@ -63,7 +81,7 @@ int main(int argc, char *argv[]){
 		}
 	}
 	
-	/* makes sure no random garbage is printed */
+	/* makes sure no random garbage is stored in the array */
 	for (i = 99; i >= 0; i--){
 		text[i][0] = 0;
 	}
