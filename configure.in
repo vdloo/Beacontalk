@@ -1,4 +1,4 @@
-AC_INIT(src/beacontalk.c)
+AC_INIT(src/main.c)
 AM_INIT_AUTOMAKE(beacontalk,0.1)
 AC_PROG_CC
 AC_PROG_INSTALL

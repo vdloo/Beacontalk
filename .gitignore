@@ -44,7 +44,6 @@ autom4te.cache
 .deps
 aclocal.m4
 compile
-configure
 depcomp
 install-sh
 missing
