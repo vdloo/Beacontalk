@@ -38,15 +38,6 @@ Icon?
 ehthumbs.db
 Thumbs.db
 
-# Autotoolstuff #
-#####################
-autom4te.cache
-.deps
-aclocal.m4
-depcomp
-missing
-config.log
-config.status
 
 # VIM temporary files #
 ######################
