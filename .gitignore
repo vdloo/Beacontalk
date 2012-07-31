@@ -43,7 +43,6 @@ Thumbs.db
 autom4te.cache
 .deps
 aclocal.m4
-compile
 depcomp
 missing
 config.log
