@@ -21,16 +21,31 @@
 
 #define SCREEN_HEIGHT 100
 
-int i, j;
+int i, j, linecount;
 char nick[10], message[500], concatenated[512], text[100][512];
 char *dev;
-
-void shiftarray(){
+void printmessage(){
 	/* clears screen */
-	for (i = SCREEN_HEIGHT; i > 0; i--){
+	linecount = 0;
+	for (i = 99; i > 0; i--){
+		if(text[i][0] != 0)
+			linecount++;
+	}
+	for (i = SCREEN_HEIGHT - linecount; i > 0; i--){
 		printf("\n");
 	}
 
+	/* prints the messages */
+	for (i = 99; i > 0; i--){
+		if (text[i][0] != 0){
+			printf("%s", text[i]);
+		}
+	}
+	fputs("enter message: ", stdout);
+	fflush(stdout);
+}
+
+void shiftarray(){
 	/* deletes the last entry in the array when it is full */
 	if (text[0][0] != 0 && text[1][0] != 0 && text[99][0] != 0){
 		text[99][0] = 0;
@@ -46,19 +61,16 @@ void shiftarray(){
 			}
 		}
 	}
-	/* prints the messages */
-	for (i = 99; i > 0; i--){
-		if (text[i][0] != 0){
-			printf("%s", text[i]);
-		}
-	}
-	fputs("enter message: ", stdout);
-	fflush(stdout);
 }
 
-void printmessage(){
+void getinput(){
 
 	fgets(message, sizeof message, stdin);
+	if (*message == '\n'){
+		fputs("enter message: ", stdout);
+		fflush(stdout);
+		return;	
+	}
 	strcpy(concatenated, nick);
 	strcat(concatenated, ": ");
 	strcat(concatenated, message);
@@ -66,6 +78,8 @@ void printmessage(){
 	for (i = 10; i > 0; i--){
 		send_beaconpacket(concatenated);
 	}
+	printmessage();
+	return;
 }	
 
 void print_help(){
@@ -115,7 +129,7 @@ int main(int argc, char *argv[]){
 				fputs("enter message: ", stdout);
 				fflush(stdout);
 				while (1){	
-					printmessage();
+					getinput();
 				}
 				break;
 

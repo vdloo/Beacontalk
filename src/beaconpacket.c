@@ -86,8 +86,9 @@ int get_beaconpacket()
 						if ( -1 == pcap_sendpacket(handle, packet, 1024))
 							printf("sending package failed\n");
 					}
+					shiftarray();
+					printmessage();
 				}
-				shiftarray();
 			}
 		}
 	}
@@ -140,7 +141,6 @@ int send_beaconpacket(char data[512])
 	*/
 
 
-	printf("%s\n",message);
 	if ( -1 == pcap_sendpacket(handle, buf, 1024))
 		printf("sending package failed\n");
 	return(0);
