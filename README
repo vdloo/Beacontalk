@@ -1,5 +1,9 @@
 Beacontalk is a simple chat program that uses wireless beacon frames to transmit and receive data.
 
+Compile the package by running
+
+$ aclocal; automake --add-missing; autoreconf; ./configure; make
+
 To use Beacontalk, your wireless card has to be in monitor mode. Using the madwifi drivers you can achieve this by entering the following command. 
 
 $ ifconfig wlan0 down; iwconfig wlan0 mode monitor; ifconfig wlan0 up
@@ -7,5 +11,5 @@ $ ifconfig wlan0 down; iwconfig wlan0 mode monitor; ifconfig wlan0 up
 Where wlan0 is your wireless device of course. 
 To put your wireless card back to normal change 'iwconfig mode monitor' to 'iwconfig mode managed'. 
 
-Make sure the wificards you are using are using the same frequency. Using iwconfig you can set a frequency like this:
+Make sure the wificards you are using are on the same frequency. Using iwconfig you can set a frequency like this:
 $ ifconfig wlan0 down; iwconfig wlan0 freq 2.412G; ifconfig wlan0 up;

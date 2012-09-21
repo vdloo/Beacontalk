@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 			}
 		}
 		if (identified){
-			/* looks for beginning of datastring and it's size */
+			/* looks for beginning of datastring and its size */
 			start = 0;
 			intlength = 0;
 			for (i = 1; i < 1024; i++){
